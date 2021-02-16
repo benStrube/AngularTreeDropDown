@@ -1,0 +1,140 @@
+<!--CONFIGURATION PAGE-->
+
+    <div class="row">
+    <!--SIDE BAR-->
+      <div>
+
+      </div>
+    </div>
+    <div class="row">
+    <!--PAGE NUMBER BAR-->
+      <div id="borderStandard">
+        <div class=" row">
+          <div class=" col-md-12 ml-auto mr-auto text-center">
+            <div class=" row d-flex justify-content-center">
+              <div class=" col-sm-1 col-2">
+                  <span style="font-size: 250%;" class="text-light"><i class="fas fa-check-circle"></i></span>
+                  <p style="font-size: 15px;">Source data</p>
+              </div>
+              <div class=" col-sm-1 col-1">
+                  <span class="text-primary" style="font-size: 150%;"><i class="fas fa-arrow-right"></i></span>
+              </div>
+              <div class=" col-sm-1 col-3">
+                  <span class="text-primary" style="font-size: 250%;">②</span>
+                  <p style="font-size: 15px;">Configure Ingestion</p>
+              </div>
+              <div class=" col-sm-1 col-1">
+                  <span class="text-primary" style="font-size: 150%;"><i class="fas fa-arrow-right"></i></span>
+              </div>
+              <div class=" col-sm-1 col-2" >
+                  <span  class="text-light" style="font-size: 250%;">③</span>
+                  <p style="font-size: 15px;">Filter Table</p>
+              </div>
+              <div class=" col-sm-1 col-1">
+                  <span  class="text-primary" style="font-size: 150%;"><i class="fas fa-arrow-right"></i></span>
+              </div>
+              <div class=" col-sm-1 col-2" >
+                  <span  class="text-light" style="font-size: 250%;">④</span>
+                  <p style="font-size: 15px;">Queuing Table</p>
+              </div>
+              <div class=" col-sm-1 col-1">
+                  <span class="text-primary" style="font-size: 150%;"><i class="fas fa-arrow-right"></i></span>
+              </div>
+              <div class=" col-sm-1 col-2">
+                  <span  class="text-light" style="font-size: 250%;">⑤</span>
+                  <p style="font-size: 15px;">Configuration Details</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--CONTENT-->
+    <div style="border: 1px solid black; ">
+      <div class="row">
+        <!--SEARCH BAR-->
+        <div class="col-md-12">
+                    
+            <form class="form-inline ml-auto">
+                <div class="form-group no-border">
+                    <label for="" class="title mt-3" style="display: inline-block;"><b>Source</b></label>
+                    <div class="input-group-prepend">
+                        <button type="submit" class="btn btn-link btn-icon btn-round">
+                            <i class="tim-icons icon-zoom-split"></i>
+                          </button>
+                    </div>
+                  <input type="text" class="form-control input-lg mt-2" placeholder="Search by database/table/column" />
+                </div>
+                
+            </form>                    
+        </div>
+
+        <!--MAT TREE-->
+          <div class="col-md-6">
+            <mat-tree [dataSource]="dataSource" [treeControl]="treeControl" class="example-tree">
+              <!-- This is the tree node template for leaf nodes -->
+              <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle id="borderStandard" cdkDrag>
+                <li class="mat-tree-node" >
+                  <!-- use a disabled button to provide padding for tree leaf -->
+                  <button mat-icon-button disabled></button>
+                  {{node.name}}
+                </li>
+              </mat-tree-node>
+              <!-- This is the tree node template for expandable nodes -->
+              <mat-nested-tree-node *matTreeNodeDef="let node; when: hasChild" cdkDrag>
+                <li>
+                  <div class="mat-tree-node" style="width: 300px;" id="borderStandard" cdkDrag>
+                    <button mat-icon-button matTreeNodeToggle
+                            [attr.aria-label]="'Toggle ' + node.name">
+                      <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                      </mat-icon>
+                    </button>
+                    {{node.name}}
+                  </div>
+                  <ul [class.example-tree-invisible]="!treeControl.isExpanded(node)" cdkDrag>
+                    <ng-container matTreeNodeOutlet></ng-container>
+                  </ul>
+                </li>
+              </mat-nested-tree-node>
+            </mat-tree>
+          </div>
+          <!--DRAGGABLE BOX-->
+          <div class="col-md-6" style="padding-left: 300px;">
+            <div class="col-md-6">
+              <h6  class="title mt-3" style="text-align: center;">Destination</h6>     
+           </div>
+            <div class=" col-md-6 ml-auto mr-auto text-center" style="border-style:dashed; width: 295px; height: 200px; text-align: center;">
+              <div class=" card">
+                <div class=" card-header">
+                </div>
+                <div class=" card-body">
+                  <h5>Drag and Drop desired</h5>
+                  <p>databases/tables/columns</p>
+                  <bold>here</bold>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!--NEXT/SAVE/CANCEL BUTTONS-->
+      <div >
+        <div class=" card-footer">
+          <div class="row">
+            <div class="col-md-6 col-sm-6 col-6">
+              
+              <button class="btn btn-default mr-4 " routerLink="/home" cdkDrag>Cancel</button>
+              <button class="btn btn-success"><i class="fas fa-file"></i>  Save as Draft</button>
+
+            </div>
+            <div class="col-md-6 col-sm-6 col-6 d-flex justify-content-end" style="padding-left: 490px;">
+              <button class="btn btn-primary mr-2" routerLink="/ingestions/rdbms">Previous</button>
+
+              <button class="btn btn-primary" routerLink="/ingestions/rdbms/filterTable">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<router-outlet></router-outlet>
